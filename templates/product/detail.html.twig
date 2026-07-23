@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ product.metaTitle|default(product.name) }} | Pregotehnika
+{% endblock %}
+
+{% block meta_description %}
+    {{ product.metaDescription|default(product.shortDescription|striptags|default(product.description|striptags|slice(0, 160))) }}
+{% endblock %}
+
+{% block body %}
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5 faq-header">
+            <h1 class="fw-bold text-navy">
+                {{ product.name }}
+            </h1>
+            {% if category %}
+                <p class="lead-text">
+                    <a href="{{ path('product_category', {slug: category.slug}) }}" class="product-breadcrumb">
+                        {{ category.name }}
+                    </a>
+                </p>
+            {% endif %}
+        </div>
+
+        {% set mainImage = product.mainImage %}
+        {% set hasGallery = product.images|length > 1 %}
+        {% set hasDocuments = product.documents is not empty %}
+
+        <div class="product-category-card product-detail-card">
+
+            <div class="card-image-left">
+                {% if mainImage %}
+                    <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}"
+                         alt="{{ mainImage.altText|default(product.name) }}">
+                {% else %}
+                    <img src="{{ asset('images/products-bg.jpg') }}"
+                         alt="{{ product.name }}">
+                {% endif %}
+            </div>
+
+            <div class="card-content-right">
+                <h3>{{ product.name }}</h3>
+
+                <div class="product-description">
+                    {{ product.description|raw }}
+                </div>
+
+                {% if hasDocuments %}
+                    <ul class="product-document-list mt-3">
+                        {% for document in product.documents|sort((a, b) => a.position <=> b.position) %}
+                            <li>
+                                {% if document.filePath %}
+                                    <a href="{{ asset('uploads/documents/' ~ document.filePath) }}"
+                                       target="_blank"
+                                       rel="noopener">
+                                        <i class="bi bi-file-earmark-text me-2"></i>
+                                        {{ document.title }}
+                                    </a>
+                                {% else %}
+                                    <span>
+                                        <i class="bi bi-file-earmark-text me-2"></i>
+                                        {{ document.title }}
+                                    </span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if hasGallery %}
+                    <div class="row g-2 product-gallery mt-3">
+                        {% for image in product.images|sort((a, b) => a.position <=> b.position) %}
+                            {% if not image.isMain %}
+                                <div class="col-6">
+                                    <div class="product-gallery-item">
+                                        <img src="{{ asset('uploads/products/' ~ image.imagePath) }}"
+                                             alt="{{ image.altText|default(product.name) }}">
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('product_category', {slug: category.slug}) }}"
+               class="product-link">
+                <i class="bi bi-arrow-left"></i>
+                Nazad na {{ category.name }}
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

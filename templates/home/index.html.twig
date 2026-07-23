@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+{% set footer = footer_data() %}
+
+{% block title %}
+    Početna | Pregotehnika
+{% endblock %}
+
+{% block body %}
+
+    <section class="hero-banner">
+
+        <div class="container">
+
+            <div
+                class="row gy-5">
+                {# INFORMACIJE O PROIZVODU - PRVO NA MOBILNOM #}
+
+                <div class="col-lg-6 order-1 order-lg-1">
+                    <h1 class="hero-title">
+                        PRECIZNOST<br>
+                        KVALITET<br>
+                        POUZDANOST
+                    </h1>
+                    <p class="hero-text">
+                        Specijalizovani za gravirane valjke i industrijska
+                                            rešenja po meri vaših procesa.
+
+                    </p>
+                    <a href="/about" class="btn bg-navy text-white hero-btn">
+                        SAZNAJTE VIŠE →
+                    </a>
+                </div>
+
+                <div class="col-12 order-2 order-lg-3">
+
+                    <div class="hero-info-card">
+
+                        <div class="row align-items-center g-4">
+
+                            <div class="col-lg-7">
+
+                                <h2>
+                                    Gravirani valjci za savremenu industriju
+                                </h2>
+
+                                <p>
+                                    Glavni fokus kompanije je proizvodnja i graviranje
+                                    <strong>čeličnih valjaka za utiskivanje</strong>,
+                                                                        koji se koriste za utiskivanje tekstura u papir i
+                                                                        druge materijale, čime se tim materijalima daju
+                                                                        posebne karakteristike.
+                                </p>
+
+                                <p>
+                                    Tržište
+                                    <strong>tissue papira</strong>
+                                    prolazi kroz
+                                                                    stalnu evoluciju, jer se mnogi proizvođači odlučuju
+                                                                    za proizvodnju toaletnog papira sa tri pa čak i četiri
+                                                                    sloja, sve u cilju povećanja vrednosti proizvoda i
+                                                                    isporuke kvalitetnijeg rešenja krajnjim kupcima.
+                                </p>
+
+                                <p>
+                                    Naša tehnologija omogućava preciznu izradu površina
+                                                                    koje odgovaraju zahtevima modernih proizvodnih procesa.
+                                </p>
+
+                            </div>
+
+                            <div class="col-lg-5">
+
+                                <img src="/images/valjak_sara.jpg" class="hero-info-image" alt="Gravirani valjak">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-6 d-flex justify-content-lg-end order-3 order-lg-2">
+
+                    <div class="contact-card">
+
+                        <h4 class="contact-card-title">
+
+                            Kontaktirajte nas
+
+                        </h4>
+
+                        {% for setting in footer.settings %}
+
+                            <div class="contact-card-item">
+
+                                <span class="icon">
+
+                                    <i class="{{ setting.iTag }}"></i>
+
+                                </span>
+
+                                <span>
+
+                                    {{ setting.value }}
+
+                                </span>
+
+                            </div>
+
+                        {% endfor %}
+
+                        <a href="/contact" class="btn btn-navy-outline w-100 mt-4">
+
+                            ZATRAŽITE PONUDU
+
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

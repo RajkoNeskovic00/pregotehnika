@@ -1,0 +1,23 @@
+<div class="row g-3">
+    {% for image in field.value %}
+        <div class="col-md-3">
+
+            <div class="card shadow-sm border-0">
+
+                <div style="width: 100%; height: 160px; overflow: hidden; background: #f8f9fa;">
+                    <img src="{{ asset('uploads/products/' ~ image.imagePath) }}"
+                         style="width: 100%; height: 100%; object-fit: cover;"
+                         alt="{{ image.altText }}">
+                </div>
+
+                <div class="card-body p-2">
+                    <small class="text-muted">
+                        {{ image.altText ?: 'No description' }}
+                    </small>
+                </div>
+
+            </div>
+
+        </div>
+    {% endfor %}
+</div>

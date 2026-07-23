@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Proizvodi | Pregotehnika
+{% endblock %}
+
+{% block body %}
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5 faq-header">
+            <h1 class="fw-bold text-navy">
+                Proizvodi
+            </h1>
+            <p class="lead-text">
+                Pregledajte naše kategorije i industrijska rešenja
+            </p>
+        </div>
+
+        {% for category in categories %}
+
+            {% set activeProducts = category.products|filter(p => p.isActive) %}
+            {% set previewProduct = activeProducts|first %}
+            {% set previewImage = previewProduct ? previewProduct.mainImage : null %}
+
+            <div class="product-category-card">
+
+                <div class="card-image-left">
+                    {% if previewImage %}
+                        <img src="{{ asset('uploads/products/' ~ previewImage.imagePath) }}"
+                             alt="{{ previewImage.altText|default(category.name) }}">
+                    {% elseif category.iTag %}
+                        <img src="{{ asset('images/icons/' ~ category.iTag) }}"
+                             alt="{{ category.name }}"
+                             class="card-image-icon">
+                    {% else %}
+                        <img src="{{ asset('images/products-bg.jpg') }}"
+                             alt="{{ category.name }}">
+                    {% endif %}
+                </div>
+
+                <div class="card-content-right">
+                    <h3>{{ category.name }}</h3>
+
+                    {% if activeProducts is not empty %}
+                        <p>
+                            {{ activeProducts|length }}
+                            {% if activeProducts|length == 1 %}
+                                proizvod
+                            {% else %}
+                                proizvoda
+                            {% endif %}
+                            u ovoj kategoriji.
+                        </p>
+                    {% else %}
+                        <p>Trenutno nema aktivnih proizvoda u ovoj kategoriji.</p>
+                    {% endif %}
+
+                    <a href="{{ path('product_category', {slug: category.slug}) }}"
+                       class="product-link">
+                        Detaljnije
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <p class="text-center text-white">Nema dostupnih kategorija.</p>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

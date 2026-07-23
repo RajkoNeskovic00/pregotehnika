@@ -1,0 +1,144 @@
+Office/OneDrive:
+rajko.neskovic@mdpi.com
+
+Email (zimbra):
+mail-internal.mdpi.com
+rajko.neskovic@mdpi.com
+t@llSquar351q
+
+Redmine:
+redmine.mdpi.com
+rajko.neskovic@mdpi.com
+rajko.neskovic_mdpi
+
+Gitlab
+rajko.neskovic@mdpi.com
+G4PnxAVqwWhR0z2c
+
+Susy:
+susy.mdpi.com
+rajko.neskovic@mdpi.com
+rajko.neskovic_MDPI
+rajko.neskovic_MDPI1
+
+Admin / backend:
+https://admin.mdpi.com/ (login is the same as for the Susy)
+
+Blog:
+http://blog.mdpi.lab/team (login is the same as for the email)
+
+Mail SDB:
+https://mailsdb.i.mdpi.com/ (login is the same as for the email)
+Additional credentials for home office:
+Username: MDPI
+Password: @MailsDB
+
+Atlassian
+7YBJW8DFSJGKU221VLPGFKEP
+
+PRIMER KOMANDE
+php app/console powertools:mass_mailing --userId=4718552
+
+# KOMANDE za pre komita 
+php vendor/bin/phpstan clear-result-cache -c phpstanBackend.neon.dist
+php vendor/bin/phpstan analyse -c phpstanBackend.neon.dist
+sudo vendor/bin/php-cs-fixer fix src --config=.php-cs-fixer.php --verbose
+
+MIGRACIJE
+-Kreiranje
+php app/console doctrine:migrations:generate
+-Izvrsavanje
+php app/console doctrine:migrations:migrate
+-Pojedinacno
+php app/console doctrine:migrations:execute 20251201154516 --up
+
+POKRETANJE
+rajko-neskovic@rajko-neskovic:/var/www/psan3.0-admin(master) $ sudo service mysql/nginx start/stop/restart 
+
+MONGO
+rajko-neskovic@rajko-neskovic:~ $ cd ~/adminMongo
+rajko-neskovic@rajko-neskovic:~/adminMongo(master) $ node app.js
+
+BAZA PROBLEM
+sudo service mysql restart 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+FLUSH PRIVILEGES;
+
+KES PROBLEM
+sudo mkdir -p /var/www/psan3.0-admin/app/cache/dev/profiler
+sudo mkdir -p /var/www/psan3.0-admin/app/cache/prod/profiler
+sudo mkdir -p /var/www/psan3.0-admin/app/logs
+sudo chown -R www-data:www-data /var/www/psan3.0-admin/app/cache
+sudo chown -R www-data:www-data /var/www/psan3.0-admin/app/logs
+
+//KES
+sudo php app/console cache:clear
+sudo chown -R www-data:www-data /var/www/psan3.0-admin/app/cache /var/www/psan3.0-admin/app/logs -> ako ne moze da se ucita projekat
+
+
+KAD SE DODA NOVI PARAMETAR:
+php composer.phar install
+
+//POZDRAV
+If you have any questions, I am available
+Best regards,
+Rajko Nešković
+
+
+
+
+Logovanje na bastion server:
+ssh -i ~/.ssh/id_ed25519 rajko.neskovic@195.65.194.200 -p 9922
+SSH:
+Your username is rajko.neskovic
+wisrob-deXker-0murco
+
+/// SSH ///
+=====!!!!!!!!!!!!!!!!!!!!!========================
+SSH za live server za izvrsenje komandi: ssh  -p9022 -J 'rajko.neskovic@195.65.194.200:9922'  www-data@10.10.0.55
+=====!!!!!!!!!!!!!!!!!!!!!====================<====
+
+/// KREIRANJE TEST GRANE I KOMANDI NA TEST SERVERU ///
+ssh rajko.neskovic@195.65.177.78 -p9922
+docker exec -it -u www-data admin-new_web_1 bash -lc "cd /var/www/admin-new && exec bash"
+
+mkdir psan_959
+udjes u taj
+git clone -b PSAN-1066 --single-branch ssh://git@gitlab.mdpi.com:9922/dev/psan3.0-admin.git .
+cp ../master/app/config/config_dev.yml app/config/config_dev.yml
+cp ../master/app/config/parameters.yml app/config/parameters.yml
+php composer.phar install
+--ako je menjan app -> push na app-bundle -> www-data@admin-new:/var/www/admin-new/psan_996/vendor/mdpi/app-bundle$ -> git pull -> 
+
+ 
+ //Povezivanje na test bazu//
+ ssh -L 3309:192.168.1.15:3309 dev1-jump -p 9922
+ pa u work branch
+
+
+//Kada su promene na app spremne za dev server
+za app bundle napravis isto branch i comisujes na dev
+onda imas dve mogucnosti
+jedn je odes u vendor/mdpi/app-bundle
+uradi pull
+i smao skrenes branch
+npr ovko: git checkout -b PSAN-995 origin/PSAN-995
+
+
+
+KADA se merguje app bundle onda se pull uradi u lokalu za master na app onda se uzme log i na mojioj grani se promeni u composer.lock se promeni na branch master i na log taj poslednji!!!
+ 
+
+NEce da pusti merge requesst zaleno dok se ne resolved sve komentari
+
+Komanda na testu za test: sudo -u www-data php app/console cron:report-about-marketing-mass-sending --emails=rajko.neskovic@mdpi.com --date_from=2024-06-01 --date_to=2026-04-30 --exclude_predefined_keyword_list
+
+
+Treba da uradim upload slike za neki entitet. E sad entite koji razvjam za backend koristice se sutra i na sajtu, posto je entite u app-bundle, i koristice se ta slika sto se okaci.
+E sad skontao sam da moram da se nekako okacim na res server. 
+Zanima me gde se radi upload slike a koja ce se koristi na sajtu i dovlaciti sa res servera?
+
+
+
+
+

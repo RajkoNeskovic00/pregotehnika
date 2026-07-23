@@ -1,0 +1,7 @@
+{% if field.value %}
+    <a href="/uploads/documents/{{ field.value }}" download class="btn btn-sm btn-success">
+        Preuzmi dokument
+    </a>
+{% else %}
+    <span>Nema dokumenta</span>
+{% endif %}

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    FAQ | Pregotehnika
+{% endblock %}
+
+{% block body %}
+
+<section class="faq-section">
+
+    <div class="faq-overlay"></div>
+
+    <div class="container position-relative">
+
+        <div class="text-center mb-5 faq-header">
+            <h1 class="fw-bold">
+                Često postavljana pitanja
+            </h1>
+            <p>
+                Odgovori na najčešća pitanja o našim proizvodima i uslugama
+            </p>
+        </div>
+
+        <div class="accordion" id="faqAccordion">
+
+            {% for faq in faqs %}
+
+                <div class="accordion-item mb-3 border-0 shadow-sm">
+
+                    <h2 class="accordion-header" id="heading{{ faq.id }}">
+
+                        <button class="accordion-button collapsed fw-semibold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#collapse{{ faq.id }}">
+
+                            {{ faq.question }}
+
+                        </button>
+
+                    </h2>
+
+                    <div id="collapse{{ faq.id }}"
+                         class="accordion-collapse collapse"
+                         data-bs-parent="#faqAccordion">
+
+                        <div class="accordion-body">
+                            {{ faq.answer|raw }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

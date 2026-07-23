@@ -1,0 +1,107 @@
+{% set footer = footer_data() %}
+
+<footer class="footer">
+    <div class="container">
+        <div
+            class="row gy-4">
+            <!-- Logo / opis -->
+            <div class="col-lg-4 footer-column">
+                <img src="{{ asset('images/logo-white.png') }}" alt="pregotehnika_logo_white" class="footer-logo">
+
+                <p class="footer-description">
+                    Pregotehnika je specijalizovana za proizvodnju
+                                        graviranih valjaka i industrijskih rešenja
+                                        prema zahtevima kupaca.
+                </p>
+            </div>
+            <div class="col-lg-2 col-md-4 footer-column">
+                <h5 class="footer-title">
+                    Kompanija
+                </h5>
+                <ul class="footer-links">
+                    {% for item in footer.menu %}
+                        <li>
+                            <a href="{{ item.slug == '/' ? '/' : '/' ~ item.slug }}">
+                                {{ item.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 footer-column">
+                <h5 class="footer-title">
+                    Proizvodi
+                </h5>
+                <ul class="footer-links">
+                    {% for category in footer.categories %}
+                        <li>
+                            <a href="{{ path('product_category', {slug: category.slug}) }}">
+                                {{ category.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4 footer-column">
+                <h5 class="footer-title">
+                    Kontakt
+                </h5>
+                {% for setting in footer.settings %}
+                    <div class="footer-contact-item">
+                        <i class="{{ setting.iTag }}"></i>
+                        <span style="">
+                            {% if setting.iTag is defined and ('phone' in setting.iTag or 'mobile' in setting.iTag) %}
+                                {% if '/' in setting.value %}
+                                    {% set brojevi = setting.value|split('/') %}
+                                    {% for broj in brojevi %}
+                                        {% set cist_broj = broj|trim|replace({' ': '', '-': '', '/': ''}) %}
+                                        {% if cist_broj|slice(0, 1) == '0' %}
+                                            {% set cist_broj = '+381' ~ cist_broj|slice(1) %}
+                                        {% endif %}
+                                        <a href="tel:{{ cist_broj }}" style="color: inherit; text-decoration: none;">{{ broj|trim }}</a>
+                                        {% if not loop.last %}
+                                            /
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% set cist_broj = setting.value|trim|replace({' ': '', '-': '', '/': ''}) %}
+                                    {% if cist_broj|slice(0, 1) == '0' %}
+                                        {% set cist_broj = '+381' ~ cist_broj|slice(1) %}
+                                    {% endif %}
+                                    <a href="tel:{{ cist_broj }}" style="color: inherit; text-decoration: none;">{{ setting.value }}</a>
+                                {% endif %}
+                            {% elseif '@' in setting.value %}
+                                <a href="mailto:{{ setting.value|trim }}" style="color: inherit; text-decoration: none;">{{ setting.value }}</a>
+                            {% else %}
+                                {{ setting.value }}
+                            {% endif %}
+
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-2 footer-column">
+                <h5 class="footer-title">
+                    Pratite nas
+                </h5>
+                <div class="footer-social">
+                    <a target="_blank" href="https://www.linkedin.com/in/djordje-stevanovic-758821113/">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="container d-flex justify-content-between flex-wrap gap-3">
+            <span>
+                ©
+                {{ 'now'|date('Y') }}
+                Pregotehnika. Sva prava zadržana.
+            </span>
+            <a href="{{ path('privacy_policy') }}">
+                Politika privatnosti
+            </a>
+        </div>
+    </div>
+</footer>

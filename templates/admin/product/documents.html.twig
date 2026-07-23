@@ -1,0 +1,35 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Naziv</th>
+        <th>Dokument</th>
+    </tr>
+    </thead>
+
+    <tbody>
+
+    {% for document in field.value %}
+
+        <tr>
+
+            <td>{{ document.title }}</td>
+
+            <td>
+
+                <a href="{{ asset('uploads/documents/' ~ document.filePath) }}"
+                   target="_blank"
+                   class="btn btn-sm btn-primary">
+
+                    📄 Preuzmi
+
+                </a>
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>

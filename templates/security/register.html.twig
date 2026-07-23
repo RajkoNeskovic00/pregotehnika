@@ -1,0 +1,25 @@
+{% extends 'security/base_auth.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block auth_content %}
+
+<form method="post" class="p-4">
+
+    <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control form-control-lg" required>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" name="password" class="form-control form-control-lg" required>
+    </div>
+
+    <button class="btn btn-success w-100 btn-lg">
+        Create account
+    </button>
+
+</form>
+
+{% endblock %}

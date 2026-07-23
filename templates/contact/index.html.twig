@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% set footer = footer_data() %}
+
+{% block title %}
+    Kontakt | Pregotehnika
+{% endblock %}
+
+{% block body %}
+    <section class="contact-section">
+        <div class="contact-overlay"></div>
+
+        <div class="container position-relative">
+            <div class="text-center contact-header">
+                <h1>Kontakt</h1>
+                <p>Kontaktirajte nas za više informacija i ponudu</p>
+            </div>
+
+            <!-- SVE U JEDNOM KARTICA -->
+            <div class="contact-main-card">
+                <div
+                    class="row g-0">
+
+                    {# LEVA STRANA: Moderna Forma #}
+                    <div class="col-lg-7 p-4 p-md-5">
+                        <div class="contact-form-wrapper">
+                            {% for message in app.flashes('success') %}
+                                <div class="alert alert-success border-0 shadow-sm mb-4">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+
+                            {% for message in app.flashes('error') %}
+                                <div class="alert alert-danger border-0 shadow-sm mb-4">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+
+                            {{ form_start(form, {attr: {class: 'modern-form', novalidate: 'novalidate'}}) }}
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex align-items-center mb-1">
+                                        {{ form_label(form.full_name) }}
+                                        <span class="text-danger ms-1">*</span>
+                                    </div>
+                                    {% set name_classes = 'form-control-custom' ~ (form.full_name.vars.errors|length > 0 ? ' is-invalid' : '') %}
+                                    {{ form_widget(form.full_name, {attr: {class: name_classes}}) }}
+                                    {% if form.full_name.vars.errors|length > 0 %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form_errors(form.full_name) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="d-flex align-items-center mb-1">
+                                        {{ form_label(form.email) }}
+                                        <span class="text-danger ms-1">*</span>
+                                    </div>
+                                    {% set name_classes = 'form-control-custom' ~ (form.email.vars.errors|length > 0 ? ' is-invalid' : '') %}
+                                    {{ form_widget(form.email, {attr: {class: name_classes}}) }}
+                                    {% if form.email.vars.errors|length > 0 %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form_errors(form.email) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="d-flex align-items-center mb-1">
+                                        {{ form_label(form.phone_number) }}
+                                        <span class="text-danger ms-1">*</span>
+                                    </div>
+                                    {% set phone_classes = 'form-control-custom' ~ (form.phone_number.vars.errors|length > 0 ? ' is-invalid' : '') %}
+                                    {{ form_widget(form.phone_number, {attr: {class: phone_classes}}) }}
+
+                                    {% if form.phone_number.vars.errors|length > 0 %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form_errors(form.phone_number) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="d-flex align-items-center mb-1">
+                                        {{ form_label(form.message) }}
+                                        <span class="text-danger ms-1">*</span>
+                                    </div>
+                                    {% set message_classes = 'form-control-custom' ~ (form.message.vars.errors|length > 0 ? ' is-invalid' : '') %}
+                                    {{ form_widget(form.message, {attr: {class: message_classes}}) }}
+
+                                    {% if form.message.vars.errors|length > 0 %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form_errors(form.message) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <button class="btn btn-modern-submit w-100">
+                                POŠALJI PORUKU
+                                <i class="fas fa-paper-plane ms-2"></i>
+                            </button>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+
+                    {# DESNA STRANA: Integrisane Info Informacije (Tamniji stakleni panel) #}
+                    <div class="col-lg-5 contact-info-sidebar p-4 p-md-5 d-flex flex-column justify-content-center">
+                        <h3 class="sidebar-title">Kontakt informacije</h3>
+                        <p class="sidebar-subtitle">Uvek smo tu da odgovorimo na vaša pitanja.</p>
+
+                        <div class="contact-info-list mt-4">
+                            {% for setting in footer.settings %}
+                                <div class="info-item-box">
+                                    <div class="info-icon-wrapper">
+                                        <i class="{{ setting.iTag is defined and setting.iTag is not empty ? setting.iTag : 'fas fa-info-circle' }}"></i>
+                                    </div>
+                                    <div class="info-text-content">
+                                        {% if setting.iTag is defined and ('phone' in setting.iTag or 'mobile' in setting.iTag) %}
+
+                                            {% if '/' in setting.value %}
+                                                {% set brojevi = setting.value|split('/') %}
+                                                {% for broj in brojevi %}
+                                                    {% set cist_broj = broj|trim|replace({' ': '', '-': '', '/': ''}) %}
+                                                    {% if cist_broj|slice(0, 1) == '0' %}
+                                                        {% set cist_broj = '+381' ~ cist_broj|slice(1) %}
+                                                    {% endif %}
+                                                    <a href="tel:{{ cist_broj }}" class="text-white text-decoration-none d-block item-hover-link">
+                                                        {{ broj|trim }}
+                                                    </a>
+                                                {% endfor %}
+                                            {% else %}
+                                                {% set cist_broj = setting.value|trim|replace({' ': '', '-': '', '/': ''}) %}
+                                                {% if cist_broj|slice(0, 1) == '0' %}
+                                                    {% set cist_broj = '+381' ~ cist_broj|slice(1) %}
+                                                {% endif %}
+                                                <a href="tel:{{ cist_broj }}" class="text-white text-decoration-none item-hover-link">
+                                                    {{ setting.value }}
+                                                </a>
+                                            {% endif %}
+                                        {% elseif '@' in setting.value %}
+                                            <a href="mailto:{{ setting.value|trim }}" class="text-white text-decoration-none item-hover-link">
+                                                {{ setting.value }}
+                                            </a>
+                                        {% else %}
+                                            {{ setting.value }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="contact-map-wrapper mt-5">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2868.3493311044726!2d20.442813099999995!3d44.034838799999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47576b8924c26ba3%3A0xe67fae0d6c34efe2!2sPregotehnika%20d.o.o!5e0!3m2!1ssr!2srs!4v1783790815547!5m2!1ssr!2srs" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+    </section>
+{% endblock %}

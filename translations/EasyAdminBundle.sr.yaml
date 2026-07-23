@@ -1,0 +1,14 @@
+# translations/EasyAdminBundle.sr.yaml
+action:
+    new: 'Dodaj %entity_label_singular%'
+    edit: 'Izmeni'
+    delete: 'Obriši'
+    detail: 'Prikaži'
+    save_and_return: 'Sačuvaj i vrati se'
+    save_and_continue: 'Sačuvaj i nastavi'
+
+page:
+    title:
+        dashboard: 'Glavna tabla'
+        edit: 'Izmeni %entity_label_singular%'
+        new: 'Dodaj %entity_label_singular%'

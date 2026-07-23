@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ category.name }} | Pregotehnika
+{% endblock %}
+
+{% block body %}
+
+<section class="product-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5 faq-header">
+            <h1 class="fw-bold text-navy">
+                {{ category.name }}
+            </h1>
+            <p class="lead-text">
+                Odaberite proizvod i saznajte više o našim rešenjima
+            </p>
+        </div>
+
+        {% if products is empty %}
+
+            <div class="hero-info-card text-center">
+                <p class="mb-0">Trenutno nema aktivnih proizvoda u ovoj kategoriji.</p>
+            </div>
+
+        {% else %}
+
+            {% for product in products %}
+
+                {% set mainImage = product.mainImage %}
+
+                <div class="product-category-card">
+                    <div class="card-image-left">
+                        {% if mainImage %}
+                            <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}"
+                                 alt="{{ mainImage.altText|default(product.name) }}">
+                        {% else %}
+                            <img src="{{ asset('images/products-bg.jpg') }}"
+                                 alt="{{ product.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="card-content-right">
+                        <h3>{{ product.name }}</h3>
+
+                        {% if product.shortDescription %}
+                            <p>{{ product.shortDescription|raw }}</p>
+                        {% else %}
+                            <p>
+                               {{ product.description|striptags|slice(0, 320) }}{% if product.description|striptags|length > 320 %}...{% endif %}
+                            </p>
+                        {% endif %}
+
+                        <a href="{{ path('product_detail', {categorySlug: category.slug, slug: product.slug}) }}"
+                           class="product-link">
+                            Detaljnije
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

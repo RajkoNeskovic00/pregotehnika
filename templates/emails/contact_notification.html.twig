@@ -1,0 +1,139 @@
+{# templates/emails/contact_notification.html.twig #}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333333;
+            margin: 0;
+            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e1e6eb;
+        }
+        .email-header {
+            background-color: #1a252f; /* Tamna tema koja prati brend */
+            color: #ffffff;
+            padding: 30px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .email-header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #b2bec3;
+        }
+        .email-body {
+            padding: 30px;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+        }
+        .info-table td {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f2f6;
+            vertical-align: top;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #7f8c8d;
+            width: 30%;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .info-value {
+            color: #2c3e50;
+            font-size: 15px;
+        }
+        .message-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #1a252f;
+            padding: 20px;
+            border-radius: 0 4px 4px 0;
+            margin-top: 10px;
+        }
+        .message-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .message-text {
+            color: #555555;
+            font-size: 15px;
+            line-height: 1.6;
+            white-space: pre-line; /* Zamena za nl2br, čuva prelome redova */
+        }
+        .email-footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #95a5a6;
+            border-top: 1px solid #e1e6eb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="email-container">
+    <div class="email-header">
+        <h1>Pregotehnika</h1>
+        <p>Nova poruka sa kontakt forme</p>
+    </div>
+
+    <div class="email-body">
+        <table class="info-table">
+            <tr>
+                <td class="info-label">Pošiljalac:</td>
+                <td class="info-value"><strong>{{ message.fullName }}</strong></td>
+            </tr>
+            <tr>
+                <td class="info-label">Email:</td>
+                <td class="info-value">
+                    {% if message.email %}
+                        <a href="mailto:{{ message.email }}" style="color: #3498db; text-decoration: none;">{{ message.email }}</a>
+                    {% else %}
+                        <span style="color: #95a5a6; font-style: italic;">Nije uneto</span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="info-label">Telefon:</td>
+                <td class="info-value">
+                    <a href="tel:{{ message.phoneNumber }}" style="color: #2c3e50; text-decoration: none;">{{ message.phoneNumber }}</a>
+                </td>
+            </tr>
+        </table>
+
+        <div class="message-title">Sadržaj poruke:</div>
+        <div class="message-box">
+            <div class="message-text">{{ message.message }}</div>
+        </div>
+    </div>
+
+    <div class="email-footer">
+        Ovaj mejl je automatski generisan sa kontakt stranice sajta Pregotehnika.
+    </div>
+</div>
+
+</body>
+</html>

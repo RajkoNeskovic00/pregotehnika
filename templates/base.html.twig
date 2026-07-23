@@ -1,19 +1,105 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="sr">
+<head>
+    <meta name="robots" content="noindex,nofollow"> {# Bitno za indeksiranje #}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
+    <title>{% block title %}Pregotehnika | Gravirani valjci i industrijska rešenja{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Specijalizovani za gravirane valjke i industrijska rešenja po meri vaših procesa. Vrhunski kvalitet i preciznost.{% endblock %}">
+    <meta name="robots" content="index, follow">
+    <link class="canonical" href="{% block canonical %}{{ app.request.uri }}{% endblock %}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
+            <div class="container">
+
+                <a class="navbar-brand d-flex align-items-center gap-2 text-navy" href="/">
+                    <img src="{{ asset('images/logo.webp') }}" alt="pregotehnika_logo" width="60" height="60" class="d-inline-block align-top img-fluid">
+                    <div style="line-height: 1;">
+                        <span class="d-block fw-extrabold fs-5" style="font-weight: 800;">PREGOTEHNIKA</span>
+                        <small class="text-muted fst-italic d-block text-end" style="font-size: 13px; letter-spacing: 1px;">embossing rolls</small>
+                    </div>
+                </a>
+
+                {# HAMBURGER DUGME #}
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigacija" aria-controls="navigacija" aria-expanded="false" aria-label="Prikaži meni">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                {# NAV MENU #}
+                <div class="collapse navbar-collapse" id="navigacija">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
+                        {% for item in nav_items|default([]) %}
+                            {% if item.children is not empty %}
+                                {# GLAVNI DROPDOWN (npr. Proizvodi) #}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ loop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        {{ item.title }}
+                                    </a>
+
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown{{ loop.index }}">
+                                        {% for sub in item.children %}
+                                            {% set has_products = sub.products is defined and sub.products is not empty %}
+                                            <li class="dropdown-submenu">
+                                                <a class="dropdown-item {% if has_products %}dropdown-toggle{% endif %} d-flex align-items-center py-2" href="/products/{{ sub.slug }}">
+                                                    {% if sub.iTag is defined and sub.iTag is not empty %}
+                                                        <img src="{{ asset('images/icons/' ~ sub.iTag) }}"
+                                                            alt=""
+                                                            style="width: 28px; height: 28px; object-fit: contain;"
+                                                            class="me-2">
+                                                    {% else %}
+                                                        <div style="width: 28px;" class="me-2"></div>
+                                                    {% endif %}
+                                                    <span>{{ sub.title }}</span>
+                                                </a>
+                                                {% if has_products %}
+                                                    <ul class="dropdown-menu submenu">
+                                                        {% for product in sub.products %}
+                                                            <li>
+                                                                <a class="dropdown-item" href="/products/{{ sub.slug }}/{{ product.slug }}">
+                                                                    {{ product.title }}
+                                                                </a>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                {# OBIČNE STAVKE #}
+                                <li class="nav-item {% if app.request.pathInfo == '/' ~ item.slug or app.request.pathInfo == item.slug %}active{% endif %}">
+                                    <a class="nav-link" href="/{{ item.slug|trim('/') }}">{{ item.title }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
         {% block body %}{% endblock %}
-    </body>
+    </main>
+
+    {{ include('fixed/footer.html.twig') }}
+
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+</body>
 </html>
