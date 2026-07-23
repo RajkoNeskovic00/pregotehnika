@@ -13,7 +13,7 @@ ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/conf-available/*.conf
 
-# Ispravljena putanja za Composer
+# Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www/html
@@ -22,7 +22,7 @@ COPY . .
 # Instalacija zavisnosti bez dev paketa
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Postavljanje dozvola za cache i logove
-RUN chown -R www-data:www-data var
+# Pravljenje var foldera i postavljanje dozvola
+RUN mkdir -p var && chown -R www-data:www-data var
 
 EXPOSE 80
