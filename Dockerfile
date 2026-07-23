@@ -27,5 +27,5 @@ RUN mkdir -p var && chown -R www-data:www-data var
 
 EXPOSE 80
 
-# Automatsko kreiranje tabela pri svakom pokretanju na Renderu
-CMD php bin/console doctrine:schema:update --force && apache2-foreground
+# Pokretanje baze, ponovno postavljanje dozvola za www-data i startovanje Apache-a
+CMD php bin/console doctrine:schema:update --force && chown -R www-data:www-data var && apache2-foreground
