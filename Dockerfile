@@ -26,3 +26,6 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 RUN mkdir -p var && chown -R www-data:www-data var
 
 EXPOSE 80
+
+# Automatsko kreiranje tabela pri svakom pokretanju na Renderu
+CMD php bin/console doctrine:schema:update --force && apache2-foreground
