@@ -37,7 +37,7 @@ RUN mkdir -p var && chown -R www-data:www-data var public
 EXPOSE 80
 
 # Pokretanje baze, kreiranje admin korisnika (opciono), dozvole i Apache
-CMD php bin/console doctrine:schema:update --force && \
+CMD php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && \
     php bin/console assets:install public --no-debug && \
     chown -R www-data:www-data var public && \
     apache2-foreground
