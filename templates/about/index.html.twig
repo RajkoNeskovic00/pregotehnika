@@ -112,40 +112,50 @@
                 Naši proizvodi i proizvodnja
             </h2>
             <div class="row g-4">
-                  <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="/images/about/alu-new.png" alt="alu-new">
-                    </div>
-                </div>
-                  <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="/images/about/rolls-for-napkins-and-tissues.webp" alt="rolls-for-napkins-and-tissues">
-                    </div>
-                </div>
-
-                  <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="/images/about/rolls-for-toilet-paper-and-paper-towels.png" alt="rolls-for-toilet-paper-and-paper-towels">
-                    </div>
+                <div class="col-md-4">
+                    <a href="{{ asset('images/about/alu-new.png') }}" class="gallery-item lightbox">
+                        <img src="{{ asset('images/about/alu-new.png') }}" alt="Gravirani valjci za aluminijumsku foliju">
+                    </a>
                 </div>
                 <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="/images/about/complete-embossing-section_back.webp" alt="complete-embossing-section_back">
-                    </div>
+                    <a href="{{ asset('images/about/rolls-for-napkins-and-tissues.webp') }}" class="gallery-item lightbox">
+                        <img src="{{ asset('images/about/rolls-for-napkins-and-tissues.webp') }}" alt="Valjci za salvete i tissue papir">
+                    </a>
                 </div>
-                 <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="/images/about/complete-embossing-section_front.webp" alt="complete-embossing-section_front">
-                    </div>
+                <div class="col-md-4">
+                    <a href="{{ asset('images/about/rolls-for-toilet-paper-and-paper-towels.png') }}" class="gallery-item lightbox">
+                        <img src="{{ asset('images/about/rolls-for-toilet-paper-and-paper-towels.png') }}" alt="Valjci za toalet papir i papirne peškire">
+                    </a>
                 </div>
-                  <div class="col-md-4">
-                    <div class="gallery-item">
-                        <img src="/images/about/medicinske_komprese_eos.jpg" alt="medicinske_komprese_eos">
-                    </div>
+                <div class="col-md-4">
+                    <a href="{{ asset('images/about/complete-embossing-section_back.webp') }}" class="gallery-item lightbox">
+                        <img src="{{ asset('images/about/complete-embossing-section_back.webp') }}" alt="Kompletna embossing sekcija - zadnji deo">
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="{{ asset('images/about/complete-embossing-section_front.webp') }}" class="gallery-item lightbox">
+                        <img src="{{ asset('images/about/complete-embossing-section_front.webp') }}" alt="Kompletna embossing sekcija - prednji deo">
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="{{ asset('images/about/medicinske_komprese_eos.jpg') }}" class="gallery-item lightbox">
+                        <img src="{{ asset('images/about/medicinske_komprese_eos.jpg') }}" alt="Medicinske komprese">
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<div id="lightbox" class="lightbox-overlay" hidden>
+    <button type="button" class="lightbox-close" aria-label="Zatvori">&times;</button>
+    <button type="button" class="lightbox-prev" aria-label="Prethodna">‹</button>
+    <img src="" alt="">
+    <button type="button" class="lightbox-next" aria-label="Sledeća">›</button>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/lightbox.js') }}"></script>
 {% endblock %}

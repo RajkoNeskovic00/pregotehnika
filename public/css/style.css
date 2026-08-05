@@ -755,6 +755,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .gallery-item img {
@@ -766,6 +768,66 @@ main {
 
 .gallery-item:hover img {
     transform: scale(1.03);
+}
+
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.lightbox-overlay[hidden] {
+    display: none;
+}
+
+.lightbox-overlay img {
+    max-width: 95vw;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.lightbox-close,
+.lightbox-prev,
+.lightbox-next {
+    position: absolute;
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 2.5rem;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0.25rem 0.5rem;
+    z-index: 2001;
+}
+
+.lightbox-close {
+    top: 1rem;
+    right: 1.5rem;
+}
+
+.lightbox-prev {
+    left: 1rem;
+}
+
+.lightbox-next {
+    right: 1rem;
+}
+
+@media (max-width: 576px) {
+    .lightbox-prev,
+    .lightbox-next {
+        font-size: 2rem;
+    }
+
+    .lightbox-close {
+        top: 0.5rem;
+        right: 0.75rem;
+    }
 }
 
 /* ===========================
@@ -855,10 +917,13 @@ main {
 }
 
 .product-gallery-item {
+    display: block;
     border-radius: 8px;
     overflow: hidden;
     height: 180px;
     border: 1px solid rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    text-decoration: none;
 }
 
 .product-gallery-item img {
@@ -870,6 +935,13 @@ main {
 
 .product-gallery-item:hover img {
     transform: scale(1.05);
+}
+
+.card-image-left a.lightbox {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }
 
 .product-document-list {

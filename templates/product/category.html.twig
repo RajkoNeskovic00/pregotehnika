@@ -36,8 +36,10 @@
                 <div class="product-category-card">
                     <div class="card-image-left">
                         {% if mainImage %}
-                            <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}?v=2"
-                                alt="{{ mainImage.altText|default(product.name) }}">
+                            <a href="{{ asset('uploads/products/' ~ mainImage.imagePath) }}" class="lightbox">
+                                <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}?v=2"
+                                    alt="{{ mainImage.altText|default(product.name) }}">
+                            </a>
                         {% else %}
                             <img src="{{ asset('images/products-bg.jpg') }}?v=2"
                                 alt="{{ product.name }}">
@@ -71,4 +73,15 @@
 
 </section>
 
+<div id="lightbox" class="lightbox-overlay" hidden>
+    <button type="button" class="lightbox-close" aria-label="Zatvori">&times;</button>
+    <button type="button" class="lightbox-prev" aria-label="Prethodna">‹</button>
+    <img src="" alt="">
+    <button type="button" class="lightbox-next" aria-label="Sledeća">›</button>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script src="{{ asset('js/lightbox.js') }}"></script>
 {% endblock %}
