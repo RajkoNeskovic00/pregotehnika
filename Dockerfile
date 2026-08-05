@@ -19,13 +19,25 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 COPY . .
 
+# Postavljanje APP_ENV na prod tokom build-a
+ENV APP_ENV=prod
+
 # Instalacija zavisnosti bez dev paketa
 RUN composer install --no-dev --optimize-autoloader --no-scripts
 
-# Pravljenje var foldera i postavljanje dozvola
-RUN mkdir -p var && chown -R www-data:www-data var
+# --- NOVO ZA EASYADMIN (Kopira CSS/JS i stvara AssetMap ako se koristi) ---
+RUN php bin/console assets:install public --no-debug
+# Ako koristiš Symfony AssetMapper (Symfony 6.3+ / 7+), otkomentariši i sledeću liniju:
+# RUN php bin/console asset-map:compile
+# --------------------------------------------------------------------------
+
+# Pravljenje var foldera i postavljanje dozvola (DODAT I public FOLDER DA BI Apache mogao da čita assets)
+RUN mkdir -p var && chown -R www-data:www-data var public
 
 EXPOSE 80
 
-# Pokretanje baze, ponovno postavljanje dozvola za www-data i startovanje Apache-a
-CMD php bin/console doctrine:schema:update --force && chown -R www-data:www-data var && apache2-foreground
+# Pokretanje baze, kreiranje admin korisnika (opciono), dozvole i Apache
+CMD php bin/console doctrine:schema:update --force && \
+    php bin/console assets:install public --no-debug && \
+    chown -R www-data:www-data var public && \
+    apache2-foreground
