@@ -14,17 +14,12 @@
 
     <div class="container">
 
+        {{ include('product/_breadcrumb.html.twig', {category: category, product: product}) }}
+
         <div class="text-center mb-5 faq-header">
             <h1 class="fw-bold text-navy">
                 {{ product.name }}
             </h1>
-            {% if category %}
-                <p class="lead-text">
-                    <a href="{{ path('product_category', {slug: category.slug}) }}" class="product-breadcrumb">
-                        {{ category.name }}
-                    </a>
-                </p>
-            {% endif %}
         </div>
 
         {% set mainImage = product.mainImage %}

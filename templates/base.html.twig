@@ -46,7 +46,11 @@
                             {% if item.children is not empty %}
                                 {# GLAVNI DROPDOWN (npr. Proizvodi) #}
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ loop.index }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link dropdown-toggle"
+                                       href="{% if item.slug == 'products' %}{{ path('products') }}{% else %}/{{ item.slug|trim('/') }}{% endif %}"
+                                       id="navbarDropdown{{ loop.index }}"
+                                       role="button"
+                                       aria-expanded="false">
                                         {{ item.title }}
                                     </a>
 

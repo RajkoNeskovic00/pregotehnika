@@ -1,0 +1,34 @@
+{% set category = category|default(null) %}
+{% set product = product|default(null) %}
+
+<nav aria-label="breadcrumb" class="product-breadcrumb-nav">
+    <ol class="breadcrumb product-breadcrumb-list">
+        <li class="breadcrumb-item">
+            <a href="{{ path('home') }}">Početna</a>
+        </li>
+
+        <li class="breadcrumb-item {% if not category and not product %}active{% endif %}">
+            {% if category or product %}
+                <a href="{{ path('products') }}">Proizvodi</a>
+            {% else %}
+                <span aria-current="page">Proizvodi</span>
+            {% endif %}
+        </li>
+
+        {% if category %}
+            <li class="breadcrumb-item {% if not product %}active{% endif %}">
+                {% if product %}
+                    <a href="{{ path('product_category', {slug: category.slug}) }}">{{ category.name }}</a>
+                {% else %}
+                    <span class="breadcrumb-item-current" aria-current="page">{{ category.name }}</span>
+                {% endif %}
+            </li>
+        {% endif %}
+
+        {% if product %}
+            <li class="breadcrumb-item active">
+                <span class="breadcrumb-item-current" aria-current="page">{{ product.name }}</span>
+            </li>
+        {% endif %}
+    </ol>
+</nav>
