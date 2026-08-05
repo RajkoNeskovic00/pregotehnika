@@ -28,4 +28,6 @@ RUN mkdir -p var && chown -R www-data:www-data var
 EXPOSE 80
 
 # Pokretanje baze, ponovno postavljanje dozvola za www-data i startovanje Apache-a
-CMD php bin/console doctrine:schema:update --force && chown -R www-data:www-data var && apache2-foreground
+CMD php bin/console assets:install public --no-debug && \
+    chown -R www-data:www-data var public && \
+    apache2-foreground
