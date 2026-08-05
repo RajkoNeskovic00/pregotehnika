@@ -28,21 +28,19 @@
             {% set previewImage = previewProduct ? previewProduct.mainImage : null %}
 
             <div class="product-category-card">
-
                 <div class="card-image-left">
                     {% if previewImage %}
-                        <img src="{{ asset('uploads/products/' ~ previewImage.imagePath) }}"
-                             alt="{{ previewImage.altText|default(category.name) }}">
+                        <img src="{{ asset('uploads/products/' ~ previewImage.imagePath) }}?v=2"
+                            alt="{{ previewImage.altText|default(category.name) }}">
                     {% elseif category.iTag %}
-                        <img src="{{ asset('images/icons/' ~ category.iTag) }}"
-                             alt="{{ category.name }}"
-                             class="card-image-icon">
+                        <img src="{{ asset('images/icons/' ~ category.iTag) }}?v=2"
+                            alt="{{ category.name }}"
+                            class="card-image-icon">
                     {% else %}
-                        <img src="{{ asset('images/products-bg.jpg') }}"
-                             alt="{{ category.name }}">
+                        <img src="{{ asset('images/products-bg.jpg') }}?v=2"
+                            alt="{{ category.name }}">
                     {% endif %}
                 </div>
-
                 <div class="card-content-right">
                     <h3>{{ category.name }}</h3>
 

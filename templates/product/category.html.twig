@@ -36,11 +36,11 @@
                 <div class="product-category-card">
                     <div class="card-image-left">
                         {% if mainImage %}
-                            <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}"
-                                 alt="{{ mainImage.altText|default(product.name) }}">
+                            <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}?v=2"
+                                alt="{{ mainImage.altText|default(product.name) }}">
                         {% else %}
-                            <img src="{{ asset('images/products-bg.jpg') }}"
-                                 alt="{{ product.name }}">
+                            <img src="{{ asset('images/products-bg.jpg') }}?v=2"
+                                alt="{{ product.name }}">
                         {% endif %}
                     </div>
                     <div class="card-content-right">
