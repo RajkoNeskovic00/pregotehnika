@@ -31,15 +31,15 @@
                 <div class="card-image-left">
                     {% if previewImage %}
                         <a href="{{ asset('uploads/products/' ~ previewImage.imagePath) }}" class="lightbox">
-                            <img src="{{ asset('uploads/products/' ~ previewImage.imagePath) }}?v=2"
+                            <img src="{{ asset('uploads/products/' ~ previewImage.imagePath) }}?v={{ random(100000, 999999) }}"
                                 alt="{{ previewImage.altText|default(category.name) }}">
                         </a>
                     {% elseif category.iTag %}
-                        <img src="{{ asset('images/icons/' ~ category.iTag) }}?v=2"
+                        <img src="{{ asset('images/icons/' ~ category.iTag) }}?v={{ random(100000, 999999) }}"
                             alt="{{ category.name }}"
                             class="card-image-icon">
                     {% else %}
-                        <img src="{{ asset('images/products-bg.jpg') }}?v=2"
+                        <img src="{{ asset('images/products-bg.jpg') }}?v={{ random(100000, 999999) }}"
                             alt="{{ category.name }}">
                     {% endif %}
                 </div>

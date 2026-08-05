@@ -30,11 +30,11 @@
             <div class="card-image-left">
                 {% if mainImage %}
                     <a href="{{ asset('uploads/products/' ~ mainImage.imagePath) }}" class="lightbox">
-                        <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}?v=2"
+                        <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}?v={{ random(100000, 999999) }}"
                             alt="{{ mainImage.altText|default(product.name) }}">
                     </a>
                 {% else %}
-                    <img src="{{ asset('images/products-bg.jpg') }}?v=2"
+                    <img src="{{ asset('images/products-bg.jpg') }}?v={{ random(100000, 999999) }}"
                         alt="{{ product.name }}">
                 {% endif %}
             </div>
