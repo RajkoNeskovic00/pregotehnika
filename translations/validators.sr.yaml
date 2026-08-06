@@ -1,0 +1,8 @@
+contact.validation.full_name_required: "Ime i prezime / Naziv firme je obavezno polje."
+contact.validation.full_name_min: "Ime mora imati najmanje {{ limit }} karaktera."
+contact.validation.email_required: "Email je obavezno polje."
+contact.validation.email_invalid: "Unesite validnu email adresu. Email mora da sadrži @ u sebi"
+contact.validation.message_required: "Poruka ne sme biti prazna."
+contact.validation.message_min: "Poruka mora imati najmanje {{ limit }} karaktera."
+contact.validation.phone_required: "Broj telefona je obavezno polje."
+contact.validation.phone_invalid: "Unesite validan broj telefona."

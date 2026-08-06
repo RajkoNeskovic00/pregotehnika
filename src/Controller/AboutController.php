@@ -7,11 +7,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AboutController extends BaseController
 {
-    #[Route('/about', name: 'about')]
+    #[Route(path: [
+        'sr' => '/o-nama',
+        'en' => '/about',
+    ], name: 'about')]
     public function index(): Response
     {
-        return $this->render('about/index.html.twig', array_merge(
-            $this->getGlobalData(),
-        ));
+        return $this->renderPage('about/index.html.twig');
     }
 }

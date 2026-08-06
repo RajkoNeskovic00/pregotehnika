@@ -47,4 +47,21 @@ class CategoryRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findOneByLocalizedSlug(string $slug, string $locale): ?Category
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        if ('en' === $locale) {
+            $qb->andWhere('c.slugEn = :slug OR (c.slugEn IS NULL AND c.slug = :slug)');
+        } else {
+            $qb->andWhere('c.slug = :slug OR c.slugEn = :slug');
+        }
+
+        return $qb
+            ->setParameter('slug', $slug)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

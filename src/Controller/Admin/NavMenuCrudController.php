@@ -44,9 +44,10 @@ class NavMenuCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('name'),
-            TextField::new('slug'),
-            IntegerField::new('order_num'),
+            TextField::new('name', 'Naziv (SR)'),
+            TextField::new('nameEn', 'Naziv (EN)'),
+            TextField::new('slug', 'Slug'),
+            IntegerField::new('order_num', 'Redosled'),
         ];
     }
 }

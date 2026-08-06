@@ -1225,3 +1225,23 @@ main {
         font-size: 13px;
     }
 }
+
+/* Language switcher */
+.lang-switcher .lang-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6c757d;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+
+.lang-switcher .lang-link:hover,
+.lang-switcher .lang-link.is-active {
+    color: #0a2540;
+}
+
+.lang-switcher .lang-link.is-active {
+    text-underline-offset: 3px;
+    text-decoration: underline;
+}
+

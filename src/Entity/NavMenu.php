@@ -27,10 +27,14 @@ class NavMenu
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nameEn;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
-
     /**
      * @ORM\Column(type="smallint")
      */
@@ -65,6 +69,18 @@ class NavMenu
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getNameEn(): ?string
+    {
+        return $this->nameEn;
+    }
+
+    public function setNameEn(?string $nameEn): self
+    {
+        $this->nameEn = $nameEn;
 
         return $this;
     }

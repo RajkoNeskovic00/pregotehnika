@@ -31,9 +31,19 @@ class Product
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $nameEn;
+
+    /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true, nullable=true)
+     */
+    private $slugEn;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -41,10 +51,19 @@ class Product
     private $shortDescription;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $shortDescriptionEn;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $description;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $descriptionEn;
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="products")
      *
@@ -68,6 +87,11 @@ class Product
     private $metaTitle;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $metaTitleEn;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $metaDescription;
@@ -75,8 +99,17 @@ class Product
     /**
      * @ORM\Column(type="text", nullable=true)
      */
+    private $metaDescriptionEn;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
     private $metaKeywords;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $metaKeywordsEn;
     /**
      * @ORM\Column(type="datetime_immutable")
      */
@@ -144,6 +177,18 @@ class Product
         return $this;
     }
 
+    public function getNameEn(): ?string
+    {
+        return $this->nameEn;
+    }
+
+    public function setNameEn(?string $nameEn): self
+    {
+        $this->nameEn = $nameEn;
+
+        return $this;
+    }
+
     /**
      * Get the value of slug.
      */
@@ -158,6 +203,18 @@ class Product
     public function setSlug(?string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSlugEn(): ?string
+    {
+        return $this->slugEn;
+    }
+
+    public function setSlugEn(?string $slugEn): self
+    {
+        $this->slugEn = $slugEn;
 
         return $this;
     }
@@ -180,6 +237,18 @@ class Product
         return $this;
     }
 
+    public function getShortDescriptionEn(): ?string
+    {
+        return $this->shortDescriptionEn;
+    }
+
+    public function setShortDescriptionEn(?string $shortDescriptionEn): self
+    {
+        $this->shortDescriptionEn = $shortDescriptionEn;
+
+        return $this;
+    }
+
     /**
      * Get the value of description.
      */
@@ -194,6 +263,18 @@ class Product
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDescriptionEn(): ?string
+    {
+        return $this->descriptionEn;
+    }
+
+    public function setDescriptionEn(?string $descriptionEn): self
+    {
+        $this->descriptionEn = $descriptionEn;
 
         return $this;
     }
@@ -270,6 +351,18 @@ class Product
         return $this;
     }
 
+    public function getMetaTitleEn(): ?string
+    {
+        return $this->metaTitleEn;
+    }
+
+    public function setMetaTitleEn(?string $metaTitleEn): self
+    {
+        $this->metaTitleEn = $metaTitleEn;
+
+        return $this;
+    }
+
     /**
      * Get the value of metaDescription.
      */
@@ -288,6 +381,18 @@ class Product
         return $this;
     }
 
+    public function getMetaDescriptionEn(): ?string
+    {
+        return $this->metaDescriptionEn;
+    }
+
+    public function setMetaDescriptionEn(?string $metaDescriptionEn): self
+    {
+        $this->metaDescriptionEn = $metaDescriptionEn;
+
+        return $this;
+    }
+
     /**
      * Get the value of metaKeywords.
      */
@@ -302,6 +407,18 @@ class Product
     public function setMetaKeywords(?string $metaKeywords): self
     {
         $this->metaKeywords = $metaKeywords;
+
+        return $this;
+    }
+
+    public function getMetaKeywordsEn(): ?string
+    {
+        return $this->metaKeywordsEn;
+    }
+
+    public function setMetaKeywordsEn(?string $metaKeywordsEn): self
+    {
+        $this->metaKeywordsEn = $metaKeywordsEn;
 
         return $this;
     }

@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="sr">
+<html lang="{{ app.request.locale|default('sr') }}">
 <head>
     <meta name="robots" content="noindex,nofollow"> {# Bitno za indeksiranje #}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Pregotehnika | Gravirani valjci i industrijska rešenja{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Specijalizovani za gravirane valjke i industrijska rešenja po meri vaših procesa. Vrhunski kvalitet i preciznost.{% endblock %}">
+    <title>{% block title %}{{ 'meta.default_title'|trans }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ 'meta.default_description'|trans }}{% endblock %}">
     <meta name="robots" content="index, follow">
     <link class="canonical" href="{% block canonical %}{{ app.request.uri }}{% endblock %}">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
+
+    {% set route = app.request.attributes.get('_route') %}
+    {% set route_params = app.request.attributes.get('_route_params')|default({}) %}
+    {% set sr_url = locale_url('sr') %}
+    {% set en_url = locale_url('en') %}
+    {% if sr_url and en_url %}
+        <link rel="alternate" hreflang="sr" href="{{ sr_url }}">
+        <link rel="alternate" hreflang="en" href="{{ en_url }}">
+        <link rel="alternate" hreflang="x-default" href="{{ sr_url }}">
+    {% endif %}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +36,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top py-3">
             <div class="container">
 
-                <a class="navbar-brand d-flex align-items-center gap-2 text-navy" href="/">
+                <a class="navbar-brand d-flex align-items-center gap-2 text-navy" href="{{ path('home') }}">
                     <img src="{{ asset('images/logo.webp') }}" alt="pregotehnika_logo" width="60" height="60" class="d-inline-block align-top img-fluid">
                     <div style="line-height: 1;">
                         <span class="d-block fw-extrabold fs-5" style="font-weight: 800;">PREGOTEHNIKA</span>
@@ -35,19 +45,19 @@
                 </a>
 
                 {# HAMBURGER DUGME #}
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigacija" aria-controls="navigacija" aria-expanded="false" aria-label="Prikaži meni">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigacija" aria-controls="navigacija" aria-expanded="false" aria-label="{{ 'nav.toggle'|trans }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
                 {# NAV MENU #}
                 <div class="collapse navbar-collapse" id="navigacija">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mt-3 mt-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 mt-3 mt-lg-0 align-items-lg-center">
                         {% for item in nav_items|default([]) %}
                             {% if item.children is not empty %}
                                 {# GLAVNI DROPDOWN (npr. Proizvodi) #}
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle"
-                                       href="{% if item.slug == 'products' %}{{ path('products') }}{% else %}/{{ item.slug|trim('/') }}{% endif %}"
+                                       href="{% if item.route %}{{ path(item.route) }}{% elseif item.slug == 'products' %}{{ path('products') }}{% else %}{{ path('home') }}{{ item.slug|trim('/') }}{% endif %}"
                                        id="navbarDropdown{{ loop.index }}"
                                        role="button"
                                        aria-expanded="false">
@@ -58,7 +68,7 @@
                                         {% for sub in item.children %}
                                             {% set has_products = sub.products is defined and sub.products is not empty %}
                                             <li class="dropdown-submenu">
-                                                <a class="dropdown-item {% if has_products %}dropdown-toggle{% endif %} d-flex align-items-center py-2" href="/products/{{ sub.slug }}">
+                                                <a class="dropdown-item {% if has_products %}dropdown-toggle{% endif %} d-flex align-items-center py-2" href="{{ path('product_category', {slug: sub.slug}) }}">
                                                     {% if sub.iTag is defined and sub.iTag is not empty %}
                                                         <img src="{{ asset('images/icons/' ~ sub.iTag) }}"
                                                             alt=""
@@ -73,7 +83,7 @@
                                                     <ul class="dropdown-menu submenu">
                                                         {% for product in sub.products %}
                                                             <li>
-                                                                <a class="dropdown-item" href="/products/{{ sub.slug }}/{{ product.slug }}">
+                                                                <a class="dropdown-item" href="{{ path('product_detail', {categorySlug: sub.slug, slug: product.slug}) }}">
                                                                     {{ product.title }}
                                                                 </a>
                                                             </li>
@@ -86,11 +96,27 @@
                                 </li>
                             {% else %}
                                 {# OBIČNE STAVKE #}
-                                <li class="nav-item {% if app.request.pathInfo == '/' ~ item.slug or app.request.pathInfo == item.slug %}active{% endif %}">
-                                    <a class="nav-link" href="/{{ item.slug|trim('/') }}">{{ item.title }}</a>
+                                <li class="nav-item {% if item.route and app.request.attributes.get('_route') == item.route %}active{% endif %}">
+                                    <a class="nav-link" href="{% if item.route %}{{ path(item.route) }}{% else %}{{ path('home') }}{% endif %}">{{ item.title }}</a>
                                 </li>
                             {% endif %}
                         {% endfor %}
+
+                        <li class="nav-item ms-lg-3">
+                            <div class="lang-switcher d-flex gap-2 align-items-center">
+                                {% set sr_path = locale_path('sr') %}
+                                {% set en_path = locale_path('en') %}
+                                {% if sr_path and en_path %}
+                                    <a class="lang-link{% if app.request.locale == 'sr' %} is-active{% endif %}"
+                                       href="{{ sr_path }}"
+                                       hreflang="sr">{{ 'nav.sr'|trans }}</a>
+                                    <span class="text-muted">|</span>
+                                    <a class="lang-link{% if app.request.locale == 'en' %} is-active{% endif %}"
+                                       href="{{ en_path }}"
+                                       hreflang="en">{{ 'nav.en'|trans }}</a>
+                                {% endif %}
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

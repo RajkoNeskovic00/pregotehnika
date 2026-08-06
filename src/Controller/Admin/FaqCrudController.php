@@ -30,8 +30,10 @@ class FaqCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('question', 'Pitanje'),
-            TextEditorField::new('answer', 'Odgovor'),
+            TextField::new('question', 'Pitanje (SR)'),
+            TextField::new('questionEn', 'Pitanje (EN)'),
+            TextEditorField::new('answer', 'Odgovor (SR)'),
+            TextEditorField::new('answerEn', 'Odgovor (EN)'),
             IntegerField::new('position', 'Pozicija'),
             BooleanField::new('isActive', 'Aktivno?'),
         ];

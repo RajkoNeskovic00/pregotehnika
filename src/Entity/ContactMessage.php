@@ -25,36 +25,36 @@ class ContactMessage
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank(message="Ime i prezime / Naziv firme je obavezno polje.")
+     * @Assert\NotBlank(message="contact.validation.full_name_required")
      *
-     * @Assert\Length(min=3, minMessage="Ime mora imati najmanje {{ limit }} karaktera.")
+     * @Assert\Length(min=3, minMessage="contact.validation.full_name_min")
      */
     private $full_name;
 
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\NotBlank(message="Email je obavezno polje.")
+     * @Assert\NotBlank(message="contact.validation.email_required")
      *
-     * @Assert\Email(message="Unesite validnu email adresu. Email mora da sadrži @ u sebi")
+     * @Assert\Email(message="contact.validation.email_invalid")
      */
     private $email;
 
     /**
      * @ORM\Column(type="text")
      *
-     * @Assert\NotBlank(message="Poruka ne sme biti prazna.")
+     * @Assert\NotBlank(message="contact.validation.message_required")
      *
-     * @Assert\Length(min=3, minMessage="Poruka mora imati najmanje {{ limit }} karaktera.")
+     * @Assert\Length(min=3, minMessage="contact.validation.message_min")
      */
     private $message;
 
     /**
      * @ORM\Column(type="string", length=50)
      *
-     * @Assert\NotBlank(message="Broj telefona je obavezno polje.")
+     * @Assert\NotBlank(message="contact.validation.phone_required")
      *
-     * @Assert\Regex(pattern="/^[0-9\s\-\+\/]+$/", message="Unesite validan broj telefona.")
+     * @Assert\Regex(pattern="/^[0-9\s\-\+\/]+$/", message="contact.validation.phone_invalid")
      */
     private $phone_number;
 

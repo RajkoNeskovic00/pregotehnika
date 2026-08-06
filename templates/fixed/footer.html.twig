@@ -9,20 +9,19 @@
                 <img src="{{ asset('images/logo-white.png') }}" alt="pregotehnika_logo_white" class="footer-logo">
 
                 <p class="footer-description">
-                    Pregotehnika je specijalizovana za proizvodnju
-                                        graviranih valjaka i industrijskih rešenja
-                                        prema zahtevima kupaca.
+                    {{ 'footer.description'|trans }}
                 </p>
             </div>
             <div class="col-lg-2 col-md-4 footer-column">
                 <h5 class="footer-title">
-                    Kompanija
+                    {{ 'footer.company'|trans }}
                 </h5>
                 <ul class="footer-links">
                     {% for item in footer.menu %}
+                        {% set route = item.slug in ['/', '', 'home'] ? 'home' : (item.slug in ['about', 'products', 'contact', 'faq'] ? item.slug : null) %}
                         <li>
-                            <a href="{{ item.slug == '/' ? '/' : '/' ~ item.slug }}">
-                                {{ item.name }}
+                            <a href="{% if route %}{{ path(route) }}{% else %}{{ path('home') }}{% endif %}">
+                                {{ localized(item, 'name') }}
                             </a>
                         </li>
                     {% endfor %}
@@ -30,13 +29,13 @@
             </div>
             <div class="col-lg-2 col-md-4 footer-column">
                 <h5 class="footer-title">
-                    Proizvodi
+                    {{ 'footer.products'|trans }}
                 </h5>
                 <ul class="footer-links">
                     {% for category in footer.categories %}
                         <li>
-                            <a href="{{ path('product_category', {slug: category.slug}) }}">
-                                {{ category.name }}
+                            <a href="{{ path('product_category', {slug: localized_slug(category)}) }}">
+                                {{ localized(category, 'name') }}
                             </a>
                         </li>
                     {% endfor %}
@@ -44,7 +43,7 @@
             </div>
             <div class="col-lg-2 col-md-4 footer-column">
                 <h5 class="footer-title">
-                    Kontakt
+                    {{ 'footer.contact'|trans }}
                 </h5>
                 {% for setting in footer.settings %}
                     <div class="footer-contact-item">
@@ -82,7 +81,7 @@
             </div>
             <div class="col-lg-2 footer-column">
                 <h5 class="footer-title">
-                    Pratite nas
+                    {{ 'footer.follow'|trans }}
                 </h5>
                 <div class="footer-social">
                     <a target="_blank" href="https://www.linkedin.com/in/djordje-stevanovic-758821113/">
@@ -97,10 +96,10 @@
             <span>
                 ©
                 {{ 'now'|date('Y') }}
-                Pregotehnika. Sva prava zadržana.
+                {{ 'footer.rights'|trans }}
             </span>
             <a href="{{ path('privacy_policy') }}">
-                Politika privatnosti
+                {{ 'footer.privacy'|trans }}
             </a>
         </div>
     </div>

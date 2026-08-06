@@ -44,9 +44,11 @@ class CategoryCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id', 'ID')->hideOnForm(),
-            TextField::new('name', 'Naziv'),
+            TextField::new('name', 'Naziv (SR)'),
+            TextField::new('nameEn', 'Naziv (EN)'),
             AssociationField::new('parent', 'Roditelj')->setCrudController(CategoryCrudController::class),
-            TextField::new('slug', 'Slug'),
+            TextField::new('slug', 'Slug (SR)'),
+            TextField::new('slugEn', 'Slug (EN)'),
         ];
     }
 }

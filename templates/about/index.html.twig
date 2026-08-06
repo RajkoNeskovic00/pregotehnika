@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    O nama | Pregotehnika
+    {{ 'about.title'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -15,11 +15,11 @@
         <div class="text-center mb-5 about-header">
 
             <h1 class="fw-bold">
-                O nama
+                {{ 'about.heading'|trans }}
             </h1>
 
             <p>
-                Preciznost, iskustvo i pouzdana industrijska rešenja
+                {{ 'about.subtitle'|trans }}
             </p>
 
         </div>
@@ -29,18 +29,11 @@
             <div class="about-block">
 
                 <h3>
-                    Pregotehnika
+                    {{ 'about.company_heading'|trans }}
                 </h3>
 
                 <p>
-                    <strong>Pregotehnika</strong> je uskospecijalizovana kompanija sa više od
-                    <span class="highlight">tri decenije iskustva</span> u projektovanju i izradi
-                    <strong>graviranih valjaka</strong> za različite industrijske primene.
-
-                    U zavisnosti od tehnoloških zahteva kupaca izrađujemo
-                    <span class="highlight">pojedinačne gravirane valjke</span> i kompletne sklopove
-                    namenjene papirnoj industriji, industriji prerade plastičnih materijala,
-                    proizvodnji ambalaže od aluminijumskih folija, kao i auto-industriji.
+                    {{ 'about.company_text'|trans|raw }}
                 </p>
 
             </div>
@@ -48,60 +41,44 @@
             <div class="about-stats">
                 <div class="stat-box">
                     <strong>2004.</strong>
-                    <span>Godina osnivanja</span>
+                    <span>{{ 'about.stat_founded'|trans }}</span>
                 </div>
                 <div class="stat-box">
                     <strong>25+</strong>
-                    <span>Godina iskustva</span>
+                    <span>{{ 'about.stat_experience'|trans }}</span>
                 </div>
                 <div class="stat-box">
                     <strong>100%</strong>
-                    <span>Posvećenost kvalitetu</span>
+                    <span>{{ 'about.stat_quality'|trans }}</span>
                 </div>
             </div>
 
             <div class="about-block">
 
                 <h3>
-                    Tehnologija i kvalitet
+                    {{ 'about.tech_heading'|trans }}
                 </h3>
 
                 <p>
-                    Primena <strong>savremenih tehnologija</strong> i tradicionalnih tehnika
-                    graviranja omogućava izradu površinskih struktura visokog kvaliteta.
-
-                    Svakom projektu pristupamo
-                    <span class="highlight">individualno i precizno</span>,
-                    sa ciljem da ponudimo pouzdano i dugotrajno rešenje prilagođeno
-                    zahtevima svakog proizvodnog procesa.
+                    {{ 'about.tech_text'|trans|raw }}
                 </p>
 
             </div>
 
             <div class="about-block">
                 <h3>
-                    Kompletne sklopove za preradu tissue papira
+                    {{ 'about.tissue_heading'|trans }}
                 </h3>
                 <p>
-                    Pored proizvodnje graviranih valjaka, projektujemo, izrađujemo i montiramo
-                    <strong>kompletne linije za preradu toalet papira</strong>.
-
-                    Naša rešenja obuhvataju kompletan proces:
-                    <span class="highlight">
-                        razvoj, proizvodnju, montažu i puštanje opreme u rad.
-                    </span>
+                    {{ 'about.tissue_text'|trans|raw }}
                 </p>
             </div>
             <div class="about-block">
                 <h3>
-                    Pouzdan partner industrije
+                    {{ 'about.partner_heading'|trans }}
                 </h3>
                 <p>
-                    Naši proizvodi i tehnološka rešenja koriste se kod kupaca u zemlji i inostranstvu.
-                    Prepoznati smo po <strong>kvalitetu izrade, preciznosti i dugom radnom veku</strong>.
-
-                    Dugogodišnje iskustvo i posvećenost svakom projektu čine nas pouzdanim partnerom
-                    u unapređenju proizvodnih procesa.
+                    {{ 'about.partner_text'|trans|raw }}
                 </p>
             </div>
         </div>
@@ -109,7 +86,7 @@
         {# Galerija #}
         <div class="about-gallery mt-5">
             <h2 class="text-center mb-4 text-white">
-                Naši proizvodi i proizvodnja
+                {{ 'about.gallery_heading'|trans }}
             </h2>
             <div class="row g-4">
                 <div class="col-md-4">
@@ -148,10 +125,10 @@
 </section>
 
 <div id="lightbox" class="lightbox-overlay" hidden>
-    <button type="button" class="lightbox-close" aria-label="Zatvori">&times;</button>
-    <button type="button" class="lightbox-prev" aria-label="Prethodna">‹</button>
+    <button type="button" class="lightbox-close" aria-label="{{ 'about.lightbox_close'|trans }}">&times;</button>
+    <button type="button" class="lightbox-prev" aria-label="{{ 'about.lightbox_prev'|trans }}">‹</button>
     <img src="" alt="">
-    <button type="button" class="lightbox-next" aria-label="Sledeća">›</button>
+    <button type="button" class="lightbox-next" aria-label="{{ 'about.lightbox_next'|trans }}">›</button>
 </div>
 
 {% endblock %}

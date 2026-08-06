@@ -41,10 +41,14 @@ class ProductImage
     private $altText;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $altTextEn;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $position = 0;
-
     /**
      * @ORM\Column(type="boolean")
      */
@@ -134,6 +138,18 @@ class ProductImage
     public function setAltText(?string $altText): self
     {
         $this->altText = $altText;
+
+        return $this;
+    }
+
+    public function getAltTextEn(): ?string
+    {
+        return $this->altTextEn;
+    }
+
+    public function setAltTextEn(?string $altTextEn): self
+    {
+        $this->altTextEn = $altTextEn;
 
         return $this;
     }

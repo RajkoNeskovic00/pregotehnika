@@ -1,5 +1,26 @@
-controllers:
+front_controllers:
     resource: ../../src/Controller/
+    type: annotation
+    exclude:
+        - ../../src/Controller/Admin/
+        - ../../src/Controller/SecurityController.php
+        - ../../src/Controller/LocaleRedirectController.php
+    prefix: /{_locale}
+    requirements:
+        _locale: sr|en
+    defaults:
+        _locale: sr
+
+security_controllers:
+    resource: ../../src/Controller/SecurityController.php
+    type: annotation
+
+locale_redirect:
+    resource: ../../src/Controller/LocaleRedirectController.php
+    type: annotation
+
+admin_controllers:
+    resource: ../../src/Controller/Admin/
     type: annotation
 
 kernel:

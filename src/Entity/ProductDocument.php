@@ -43,10 +43,14 @@ class ProductDocument
     private $title;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $titleEn;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $position = 0;
-
     /**
      * @ORM\Column(type="datetime_immutable")
      */
@@ -105,6 +109,18 @@ class ProductDocument
     public function setTitle(?string $title): self
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getTitleEn(): ?string
+    {
+        return $this->titleEn;
+    }
+
+    public function setTitleEn(?string $titleEn): self
+    {
+        $this->titleEn = $titleEn;
 
         return $this;
     }

@@ -29,10 +29,19 @@ class Faq
     private ?string $question = null;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $questionEn = null;
+
+    /**
      * @ORM\Column(type="text")
      */
     private ?string $answer = null;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private ?string $answerEn = null;
     /**
      * @ORM\Column(type="integer")
      */
@@ -87,6 +96,18 @@ class Faq
         return $this;
     }
 
+    public function getQuestionEn(): ?string
+    {
+        return $this->questionEn;
+    }
+
+    public function setQuestionEn(?string $questionEn): static
+    {
+        $this->questionEn = $questionEn;
+
+        return $this;
+    }
+
     public function getAnswer(): ?string
     {
         return $this->answer;
@@ -95,6 +116,18 @@ class Faq
     public function setAnswer(string $answer): static
     {
         $this->answer = $answer;
+
+        return $this;
+    }
+
+    public function getAnswerEn(): ?string
+    {
+        return $this->answerEn;
+    }
+
+    public function setAnswerEn(?string $answerEn): static
+    {
+        $this->answerEn = $answerEn;
 
         return $this;
     }

@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% set footer = footer_data() %}
-
 {% block title %}
-    Kontakt | Pregotehnika
+    {{ 'contact.title'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -12,8 +10,8 @@
 
         <div class="container position-relative">
             <div class="text-center contact-header">
-                <h1>Kontakt</h1>
-                <p>Kontaktirajte nas za više informacija i ponudu</p>
+                <h1>{{ 'contact.heading'|trans }}</h1>
+                <p>{{ 'contact.subtitle'|trans }}</p>
             </div>
 
             <!-- SVE U JEDNOM KARTICA -->
@@ -95,7 +93,7 @@
                             </div>
 
                             <button class="btn btn-modern-submit w-100">
-                                POŠALJI PORUKU
+                                {{ 'contact.submit'|trans }}
                                 <i class="fas fa-paper-plane ms-2"></i>
                             </button>
                             {{ form_end(form) }}
@@ -104,8 +102,8 @@
 
                     {# DESNA STRANA: Integrisane Info Informacije (Tamniji stakleni panel) #}
                     <div class="col-lg-5 contact-info-sidebar p-4 p-md-5 d-flex flex-column justify-content-center">
-                        <h3 class="sidebar-title">Kontakt informacije</h3>
-                        <p class="sidebar-subtitle">Uvek smo tu da odgovorimo na vaša pitanja.</p>
+                        <h3 class="sidebar-title">{{ 'contact.sidebar_title'|trans }}</h3>
+                        <p class="sidebar-subtitle">{{ 'contact.sidebar_subtitle'|trans }}</p>
 
                         <div class="contact-info-list mt-4">
                             {% for setting in footer.settings %}

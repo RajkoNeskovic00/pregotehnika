@@ -8,16 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FaqController extends BaseController
 {
-    /**
-     * @Route("/faq", name="faq")
-     */
+    #[Route(path: [
+        'sr' => '/faq',
+        'en' => '/faq',
+    ], name: 'faq')]
     public function index(FaqRepository $faqRepository): Response
     {
-        return $this->render('faq/index.html.twig', array_merge(
-            $this->getGlobalData(),
-            [
-                'faqs' => $faqRepository->findActive(),
-            ],
-        ));
+        return $this->renderPage('faq/index.html.twig', [
+            'faqs' => $faqRepository->findActive(),
+        ]);
     }
 }

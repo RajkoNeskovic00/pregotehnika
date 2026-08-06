@@ -32,7 +32,8 @@ class ProductDocumentCrudController extends AbstractCrudController
             AssociationField::new('product', 'Proizvod')
                 ->autocomplete(),
 
-            TextField::new('filePath', 'Naziv'),
+            TextField::new('title', 'Naslov (SR)'),
+            TextField::new('titleEn', 'Naslov (EN)'),
 
             TextField::new('filePath', 'Preuzmi dokument')
                 ->onlyOnIndex()

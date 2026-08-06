@@ -39,57 +39,51 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            // =====================
-            // INDEX (KRATKO)
-            // =====================
             IdField::new('id')->onlyOnIndex(),
 
-            TextField::new('name', 'Naziv')->onlyOnIndex(),
+            TextField::new('name', 'Naziv (SR)')->onlyOnIndex(),
             AssociationField::new('category', 'Kategorija')->onlyOnIndex(),
             BooleanField::new('isActive', 'Aktivan')->onlyOnIndex(),
 
-            // =====================
-            // FORM (CREATE + EDIT)
-            // =====================
-            TextField::new('name', 'Naziv')->onlyOnForms(),
-            TextField::new('slug', 'Slug')->onlyOnForms(),
+            TextField::new('name', 'Naziv (SR)')->onlyOnForms(),
+            TextField::new('nameEn', 'Naziv (EN)')->onlyOnForms(),
+            TextField::new('slug', 'Slug (SR)')->onlyOnForms(),
+            TextField::new('slugEn', 'Slug (EN)')->onlyOnForms(),
 
-            TextEditorField::new('shortDescription', 'Kratak opis')->onlyOnForms(),
-            TextEditorField::new('description', 'Opis')->onlyOnForms(),
+            TextEditorField::new('shortDescription', 'Kratak opis (SR)')->onlyOnForms(),
+            TextEditorField::new('shortDescriptionEn', 'Kratak opis (EN)')->onlyOnForms(),
+            TextEditorField::new('description', 'Opis (SR)')->onlyOnForms(),
+            TextEditorField::new('descriptionEn', 'Opis (EN)')->onlyOnForms(),
 
             AssociationField::new('category', 'Kategorija')->onlyOnForms(),
             BooleanField::new('isActive', 'Aktivan')->onlyOnForms(),
             IntegerField::new('position', 'Redosled')->onlyOnForms(),
 
-            TextField::new('metaTitle', 'SEO Title')->onlyOnForms(),
-            TextField::new('metaDescription', 'SEO Description')->onlyOnForms(),
-            TextField::new('metaKeywords', 'SEO Keywords')->onlyOnForms(),
+            TextField::new('metaTitle', 'SEO Title (SR)')->onlyOnForms(),
+            TextField::new('metaTitleEn', 'SEO Title (EN)')->onlyOnForms(),
+            TextField::new('metaDescription', 'SEO Description (SR)')->onlyOnForms(),
+            TextField::new('metaDescriptionEn', 'SEO Description (EN)')->onlyOnForms(),
+            TextField::new('metaKeywords', 'SEO Keywords (SR)')->onlyOnForms(),
+            TextField::new('metaKeywordsEn', 'SEO Keywords (EN)')->onlyOnForms(),
 
-            // =====================
-            // DETAIL (FULL VIEW)
-            // =====================
-
-            TextField::new('name', 'Naziv')->onlyOnDetail(),
-
-            TextField::new('slug', 'Slug')->onlyOnDetail(),
-
-            TextEditorField::new('shortDescription', 'Kratak opis')->onlyOnDetail(),
-
-            TextEditorField::new('description', 'Opis')->onlyOnDetail(),
-
+            TextField::new('name', 'Naziv (SR)')->onlyOnDetail(),
+            TextField::new('nameEn', 'Naziv (EN)')->onlyOnDetail(),
+            TextField::new('slug', 'Slug (SR)')->onlyOnDetail(),
+            TextField::new('slugEn', 'Slug (EN)')->onlyOnDetail(),
+            TextEditorField::new('shortDescription', 'Kratak opis (SR)')->onlyOnDetail(),
+            TextEditorField::new('shortDescriptionEn', 'Kratak opis (EN)')->onlyOnDetail(),
+            TextEditorField::new('description', 'Opis (SR)')->onlyOnDetail(),
+            TextEditorField::new('descriptionEn', 'Opis (EN)')->onlyOnDetail(),
             AssociationField::new('category', 'Kategorija')->onlyOnDetail(),
-
             BooleanField::new('isActive', 'Aktivan')->onlyOnDetail(),
-
             IntegerField::new('position', 'Redosled')->onlyOnDetail(),
+            TextField::new('metaTitle', 'SEO Title (SR)')->onlyOnDetail(),
+            TextField::new('metaTitleEn', 'SEO Title (EN)')->onlyOnDetail(),
+            TextField::new('metaDescription', 'SEO Description (SR)')->onlyOnDetail(),
+            TextField::new('metaDescriptionEn', 'SEO Description (EN)')->onlyOnDetail(),
+            TextField::new('metaKeywords', 'SEO Keywords (SR)')->onlyOnDetail(),
+            TextField::new('metaKeywordsEn', 'SEO Keywords (EN)')->onlyOnDetail(),
 
-            TextField::new('metaTitle', 'SEO Title')->onlyOnDetail(),
-            TextField::new('metaDescription', 'SEO Description')->onlyOnDetail(),
-            TextField::new('metaKeywords', 'SEO Keywords')->onlyOnDetail(),
-
-            // =====================
-            // MEDIA
-            // =====================
             CollectionField::new('images', 'Slike')
                 ->onlyOnDetail()
                 ->setTemplatePath('admin/product/images.html.twig'),
@@ -98,9 +92,6 @@ class ProductCrudController extends AbstractCrudController
                 ->onlyOnDetail()
                 ->setTemplatePath('admin/product/documents.html.twig'),
 
-            // =====================
-            // META
-            // =====================
             DateTimeField::new('createdAt', 'Kreiran')
                 ->onlyOnDetail()
                 ->setFormat('dd.MM.yyyy HH:mm'),

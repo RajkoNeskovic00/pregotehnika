@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    FAQ | Pregotehnika
+    {{ 'faq.title'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -14,10 +14,10 @@
 
         <div class="text-center mb-5 faq-header">
             <h1 class="fw-bold">
-                Često postavljana pitanja
+                {{ 'faq.heading'|trans }}
             </h1>
             <p>
-                Odgovori na najčešća pitanja o našim proizvodima i uslugama
+                {{ 'faq.subtitle'|trans }}
             </p>
         </div>
 
@@ -34,7 +34,7 @@
                                 data-bs-toggle="collapse"
                                 data-bs-target="#collapse{{ faq.id }}">
 
-                            {{ faq.question }}
+                            {{ localized(faq, 'question') }}
 
                         </button>
 
@@ -45,7 +45,7 @@
                          data-bs-parent="#faqAccordion">
 
                         <div class="accordion-body">
-                            {{ faq.answer|raw }}
+                            {{ localized(faq, 'answer')|raw }}
                         </div>
 
                     </div>

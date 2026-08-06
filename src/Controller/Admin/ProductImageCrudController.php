@@ -40,7 +40,8 @@ class ProductImageCrudController extends AbstractCrudController
                 ->setUploadedFileNamePattern('[slug]-[uuid].[extension]')
                 ->setRequired(true),
 
-            TextField::new('altText', 'Alt tekst'),
+            TextField::new('altText', 'Alt tekst (SR)'),
+            TextField::new('altTextEn', 'Alt tekst (EN)'),
 
             IntegerField::new('position', 'Redosled'),
 

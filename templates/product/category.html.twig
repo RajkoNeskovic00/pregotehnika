@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% set categoryName = localized(category, 'name') %}
+
 {% block title %}
-    {{ category.name }} | Pregotehnika
+    {{ categoryName }} | Pregotehnika
 {% endblock %}
 
 {% block body %}
@@ -14,17 +16,17 @@
 
         <div class="text-center mb-5 faq-header">
             <h1 class="fw-bold text-navy">
-                {{ category.name }}
+                {{ categoryName }}
             </h1>
             <p class="lead-text">
-                Odaberite proizvod i saznajte više o našim rešenjima
+                {{ 'products.category_subtitle'|trans }}
             </p>
         </div>
 
         {% if products is empty %}
 
             <div class="hero-info-card text-center">
-                <p class="mb-0">Trenutno nema aktivnih proizvoda u ovoj kategoriji.</p>
+                <p class="mb-0">{{ 'products.empty_category'|trans }}</p>
             </div>
 
         {% else %}
@@ -32,33 +34,36 @@
             {% for product in products %}
 
                 {% set mainImage = product.mainImage %}
+                {% set productName = localized(product, 'name') %}
 
                 <div class="product-category-card">
                     <div class="card-image-left">
                         {% if mainImage %}
                             <a href="{{ asset('uploads/products/' ~ mainImage.imagePath) }}" class="lightbox">
                                 <img src="{{ asset('uploads/products/' ~ mainImage.imagePath) }}?v={{ random(100000, 999999) }}"
-                                    alt="{{ mainImage.altText|default(product.name) }}">
+                                    alt="{{ localized(mainImage, 'altText')|default(productName) }}">
                             </a>
                         {% else %}
                             <img src="{{ asset('images/products-bg.jpg') }}?v={{ random(100000, 999999) }}"
-                                alt="{{ product.name }}">
+                                alt="{{ productName }}">
                         {% endif %}
                     </div>
                     <div class="card-content-right">
-                        <h3>{{ product.name }}</h3>
+                        <h3>{{ productName }}</h3>
 
-                        {% if product.shortDescription %}
-                            <p>{{ product.shortDescription|raw }}</p>
+                        {% set shortDescription = localized(product, 'shortDescription') %}
+                        {% set description = localized(product, 'description') %}
+                        {% if shortDescription %}
+                            <p>{{ shortDescription|raw }}</p>
                         {% else %}
                             <p>
-                               {{ product.description|striptags|slice(0, 320) }}{% if product.description|striptags|length > 320 %}...{% endif %}
+                               {{ description|striptags|slice(0, 320) }}{% if description|striptags|length > 320 %}...{% endif %}
                             </p>
                         {% endif %}
 
-                        <a href="{{ path('product_detail', {categorySlug: category.slug, slug: product.slug}) }}"
+                        <a href="{{ path('product_detail', {categorySlug: localized_slug(category), slug: localized_slug(product)}) }}"
                            class="product-link">
-                            Detaljnije
+                            {{ 'products.more'|trans }}
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -74,10 +79,10 @@
 </section>
 
 <div id="lightbox" class="lightbox-overlay" hidden>
-    <button type="button" class="lightbox-close" aria-label="Zatvori">&times;</button>
-    <button type="button" class="lightbox-prev" aria-label="Prethodna">‹</button>
+    <button type="button" class="lightbox-close" aria-label="{{ 'about.lightbox_close'|trans }}">&times;</button>
+    <button type="button" class="lightbox-prev" aria-label="{{ 'about.lightbox_prev'|trans }}">‹</button>
     <img src="" alt="">
-    <button type="button" class="lightbox-next" aria-label="Sledeća">›</button>
+    <button type="button" class="lightbox-next" aria-label="{{ 'about.lightbox_next'|trans }}">›</button>
 </div>
 
 {% endblock %}

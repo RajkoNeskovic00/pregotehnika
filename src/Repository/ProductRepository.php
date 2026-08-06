@@ -58,13 +58,26 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findActiveBySlug(string $slug): ?Product
     {
-        return $this->createQueryBuilder('p')
+        return $this->findActiveByLocalizedSlug($slug, 'sr');
+    }
+
+    public function findActiveByLocalizedSlug(string $slug, string $locale): ?Product
+    {
+        $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.images', 'i')->addSelect('i')
             ->leftJoin('p.documents', 'd')->addSelect('d')
             ->leftJoin('p.category', 'c')->addSelect('c')
-            ->andWhere('p.slug = :slug')
-            ->andWhere('p.isActive = true')
+            ->andWhere('p.isActive = true');
+
+        if ('en' === $locale) {
+            $qb->andWhere('p.slugEn = :slug OR (p.slugEn IS NULL AND p.slug = :slug)');
+        } else {
+            $qb->andWhere('p.slug = :slug OR p.slugEn = :slug');
+        }
+
+        return $qb
             ->setParameter('slug', $slug)
+            ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
     }

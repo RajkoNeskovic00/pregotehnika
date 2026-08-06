@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\NavMenuRepository;
 use App\Repository\SettingRepository;
 use App\Repository\CategoryRepository;
+use App\Service\LocalizationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 abstract class BaseController extends AbstractController
@@ -12,21 +13,23 @@ abstract class BaseController extends AbstractController
     protected NavMenuRepository $navMenuRepo;
     protected CategoryRepository $categoryRepo;
     protected SettingRepository $settingRepo;
+    protected LocalizationService $localization;
 
     public function __construct(
         NavMenuRepository $navMenuRepo,
         CategoryRepository $categoryRepo,
         SettingRepository $settingRepo,
+        LocalizationService $localization,
     ) {
         $this->navMenuRepo = $navMenuRepo;
         $this->categoryRepo = $categoryRepo;
         $this->settingRepo = $settingRepo;
+        $this->localization = $localization;
     }
 
     protected function getNavItems(): array
     {
         $mainMenu = $this->navMenuRepo->findMainMeni();
-
         $navItems = [];
 
         foreach ($mainMenu as $menu) {
@@ -36,22 +39,33 @@ abstract class BaseController extends AbstractController
                 $categories = $this->categoryRepo->findMainCategories();
                 foreach ($categories as $category) {
                     $products = [];
-                    $categorySlug = $category->getSlug();
+                    $categorySlug = $this->localization->slug($category);
+                    $categorySrSlug = $category->getSlug();
+                    $categoryEnSlug = $category->getSlugEn();
 
                     foreach ($category->getProducts() as $product) {
-                        if ($product->getSlug() === $categorySlug) {
+                        // Skip "category overview" products that mirror the category slug.
+                        if (
+                            $product->getSlug() === $categorySrSlug
+                            || ($categoryEnSlug && $product->getSlugEn() === $categoryEnSlug)
+                            || ($categoryEnSlug && $product->getSlug() === $categoryEnSlug)
+                        ) {
+                            continue;
+                        }
+
+                        if (!$product->getIsActive()) {
                             continue;
                         }
 
                         $products[] = [
-                            'title' => $product->getName(),
-                            'slug'  => $product->getSlug(),
+                            'title' => $this->localization->field($product, 'name'),
+                            'slug'  => $this->localization->slug($product),
                         ];
                     }
 
                     $children[] = [
-                        'title'    => $category->getName(),
-                        'slug'     => $category->getSlug(),
+                        'title'    => $this->localization->field($category, 'name'),
+                        'slug'     => $categorySlug,
                         'iTag'     => $category->getITag(),
                         'products' => $products,
                     ];
@@ -59,8 +73,9 @@ abstract class BaseController extends AbstractController
             }
 
             $navItems[] = [
-                'title'    => $menu->getName(),
+                'title'    => $this->localization->field($menu, 'name'),
                 'slug'     => $menu->getSlug(),
+                'route'    => $this->resolveNavRoute($menu->getSlug()),
                 'children' => $children,
             ];
         }
@@ -68,9 +83,18 @@ abstract class BaseController extends AbstractController
         return $navItems;
     }
 
-    /**
-     * Footer podaci.
-     */
+    protected function resolveNavRoute(?string $slug): ?string
+    {
+        return match ($slug) {
+            '/', '', 'home' => 'home',
+            'about'         => 'about',
+            'products'      => 'products',
+            'contact'       => 'contact',
+            'faq'           => 'faq',
+            default         => null,
+        };
+    }
+
     protected function getFooterData(): array
     {
         return [
@@ -78,9 +102,6 @@ abstract class BaseController extends AbstractController
         ];
     }
 
-    /**
-     * Svi globalni Twig podaci.
-     */
     protected function getGlobalData(): array
     {
         return [
@@ -89,9 +110,6 @@ abstract class BaseController extends AbstractController
         ];
     }
 
-    /**
-     * Render svih stranica.
-     */
     protected function renderPage(
         string $view,
         array $parameters = [],

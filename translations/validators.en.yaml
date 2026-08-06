@@ -1,0 +1,8 @@
+contact.validation.full_name_required: "Full name / company name is required."
+contact.validation.full_name_min: "Name must be at least {{ limit }} characters."
+contact.validation.email_required: "Email is required."
+contact.validation.email_invalid: "Please enter a valid email address. Email must contain @"
+contact.validation.message_required: "Message cannot be empty."
+contact.validation.message_min: "Message must be at least {{ limit }} characters."
+contact.validation.phone_required: "Phone number is required."
+contact.validation.phone_invalid: "Please enter a valid phone number."
